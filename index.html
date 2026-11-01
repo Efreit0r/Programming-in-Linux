@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Программирование в Linux — СПбГУ</title>
+<style>
+  :root {
+    --wine: #923826;
+    --wine-dark: #7a2a1c;
+    --gold: #d3b25f;
+    --rose: #ae6464;
+    --tint: #f8f1f1;
+    --ink: #181818;
+    --muted: #6f6f6f;
+    --line: rgba(146, 56, 38, 0.18);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Liberation Sans", "DejaVu Sans", system-ui, sans-serif;
+    background: var(--tint);
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  header {
+    background: radial-gradient(120% 120% at 12% 8%, #24457f 0%, #16233c 45%, #0d1020 100%);
+    background: radial-gradient(120% 120% at 10% 0%, #a8442f 0%, var(--wine) 45%, var(--wine-dark) 100%);
+    color: #fff;
+    padding: 4rem 1.5rem 3.2rem;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  .kicker {
+    font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--gold); margin: 0 0 0.9rem;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); margin: 0; line-height: 1.05; letter-spacing: -0.02em; }
+  .sub { color: rgba(255,255,255,.8); margin: 1rem 0 0; max-width: 40rem; font-size: 1rem; }
+  .rule { width: 86px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--gold), transparent); margin: 1.4rem 0; }
+  main { max-width: 1100px; margin: 0 auto; padding: 2.6rem 1.5rem 1rem; }
+  h2 { font-size: 1.15rem; color: var(--wine); margin: 0 0 1rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+  .card {
+    display: block; text-decoration: none; color: inherit;
+    background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    padding: 1.1rem 1.2rem 1.2rem; position: relative; overflow: hidden;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: linear-gradient(180deg, var(--rose), var(--wine));
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(146,56,38,.16); border-color: rgba(146,56,38,.35); }
+  .num { font-size: .7rem; letter-spacing: .18em; color: var(--rose); font-weight: 700; }
+  .card h3 { margin: .35rem 0 .4rem; font-size: 1rem; color: var(--wine); line-height: 1.25; }
+  .card p { margin: 0; font-size: .82rem; color: var(--muted); }
+  .meta { margin-top: .8rem; font-size: .72rem; color: var(--muted); display: flex; gap: .6rem; align-items: center; }
+  .pill { background: var(--tint); border: 1px solid var(--line); border-radius: 99px; padding: .1rem .5rem; }
+  .note {
+    background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--gold);
+    border-radius: 10px; padding: 1rem 1.2rem; margin: 2.4rem 0 1rem; font-size: .88rem;
+  }
+  .note b { color: var(--wine); }
+  .test {
+    background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    padding: 1.4rem 1.5rem; margin: 1rem 0 2rem;
+  }
+  .test h3 { margin: 0 0 .5rem; color: var(--wine); font-size: 1.05rem; }
+  .test ol { margin: .6rem 0 1rem; padding-left: 1.3rem; font-size: .88rem; color: #333; }
+  .test li { margin: .25rem 0; }
+  code {
+    font-family: "Liberation Mono", "DejaVu Sans Mono", monospace;
+    font-size: .85em; background: rgba(146,56,38,.08); color: var(--wine);
+    border-radius: 4px; padding: .05em .35em;
+  }
+  pre {
+    background: #1b1b1b; color: #e8e8e8; border-radius: 8px; padding: .85rem 1rem;
+    overflow-x: auto; font-family: "Liberation Mono", monospace; font-size: .8rem;
+  }
+  pre .c { color: #8f8f8f; }
+  .btn {
+    display: inline-block; text-decoration: none; background: var(--wine); color: #fff;
+    border-radius: 8px; padding: .55rem 1.1rem; font-size: .86rem; font-weight: 600;
+    transition: background .18s ease;
+  }
+  .btn:hover { background: var(--wine-dark); }
+  .btn.ghost { background: #fff; color: var(--wine); border: 1px solid var(--line); margin-left: .5rem; }
+  footer {
+    border-top: 1px solid var(--line); margin-top: 2rem; padding: 1.6rem 1.5rem 2.4rem;
+    color: var(--muted); font-size: .8rem; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="kicker">СПбГУ · кафедра технологии программирования</p>
+    <h1>Программирование<br>в Linux</h1>
+    <div class="rule"></div>
+    <p class="sub">
+      Материалы курса: лекции в браузере и тест для промежуточной аттестации.
+      Слайды открываются в любом браузере, устанавливать ничего не нужно.
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <h2>Пройденные лекции</h2>
+
+  <div class="grid">
+
+    <a class="card" href="./01/">
+      <div class="num">ЛЕКЦИЯ 1</div>
+      <h3>Краткая история операционных систем на основе ядра Linux</h3>
+      <p>Ядро и предшественники, рождение Linux, дистрибутивы, Linux сегодня.</p>
+      <div class="meta"><span class="pill">35 слайдов</span> <span>открыть →</span></div>
+    </a>
+
+    <a class="card" href="./02/">
+      <div class="num">ЛЕКЦИЯ 2</div>
+      <h3>Работа с командной строкой в Linux</h3>
+      <p>Терминал и оболочка, файловая система, процессы, редакторы, конвейеры.</p>
+      <div class="meta"><span class="pill">21 слайд</span> <span>открыть →</span></div>
+    </a>
+
+    <a class="card" href="./03/">
+      <div class="num">ЛЕКЦИЯ 3</div>
+      <h3>Работа с командной строкой: Bash</h3>
+      <p>Пути и кавычки, права, потоки, сценарии, SSH и tmux — с практикой.</p>
+      <div class="meta"><span class="pill">55 слайдов</span> <span>открыть →</span></div>
+    </a>
+
+    <a class="card" href="./04/">
+      <div class="num">ЛЕКЦИЯ 4</div>
+      <h3>Сборка программ в Linux</h3>
+      <p>Препроцессор, компилятор, линковщик, Make, CMake, Meson и autotools.</p>
+      <div class="meta"><span class="pill">36 слайдов</span> <span>открыть →</span></div>
+    </a>
+
+  </div>
+
+  <div class="note">
+    <b>Новые лекции появятся здесь по мере занятий.</b> Курс идёт последовательно:
+    каждая следующая колода открывается после того, как материал пройден.
+  </div>
+
+  <h2 style="margin-top:2.4rem">Промежуточная аттестация</h2>
+
+  <div class="test">
+    <h3>Тест по лекциям 1–4 · 30 минут</h3>
+    <ol>
+      <li>Скачайте файл <code>attestation.py</code> (кнопка ниже).</li>
+      <li>Откройте терминал в папке со скачанным файлом.</li>
+      <li>Запустите: <code>python3 attestation.py</code></li>
+      <li>Укажите фамилию, имя и группу, отвечайте на 16 вопросов.</li>
+      <li>После последнего вопроса тест закроется сам. Рядом появится папка
+          <code>vk workspace</code> с файлом результата — его и нужно сдать.</li>
+    </ol>
+
+    <pre><span class="c"># в терминале, в папке с файлом</span>
+python3 attestation.py
+
+<span class="c"># результат появится здесь:</span>
+vk workspace/Иванов_Иван_21-А_2026-11-01_23-06.txt</pre>
+
+    <p style="font-size:.86rem;color:#333;margin:.2rem 0 1rem">
+      <b>Правила:</b> ответ принимается один раз, вернуться нельзя.
+      Выйти из теста нельзя: <code>Ctrl+C</code>, <code>Ctrl+D</code> или закрытие
+      терминала означают, что попытка прервана. Порог — 60% правильных ответов.
+    </p>
+
+    <a class="btn" href="./attestation/attestation.py" download>Скачать attestation.py</a>
+    <a class="btn ghost" href="./attestation/README.md">Инструкция</a>
+  </div>
+
+</main>
+
+<footer>
+  Программирование в Linux · СПбГУ, кафедра технологии программирования · 2026
+</footer>
+
+</body>
+</html>
