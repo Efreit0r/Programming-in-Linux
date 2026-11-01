@@ -24,7 +24,6 @@
     line-height: 1.55;
   }
   header {
-    background: radial-gradient(120% 120% at 12% 8%, #24457f 0%, #16233c 45%, #0d1020 100%);
     background: radial-gradient(120% 120% at 10% 0%, #a8442f 0%, var(--wine) 45%, var(--wine-dark) 100%);
     color: #fff;
     padding: 4rem 1.5rem 3.2rem;
@@ -58,35 +57,24 @@
   .pill { background: var(--tint); border: 1px solid var(--line); border-radius: 99px; padding: .1rem .5rem; }
   .note {
     background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--gold);
-    border-radius: 10px; padding: 1rem 1.2rem; margin: 2.4rem 0 1rem; font-size: .88rem;
+    border-radius: 10px; padding: 1rem 1.2rem; margin: 2.2rem 0 1rem; font-size: .88rem;
   }
   .note b { color: var(--wine); }
-  .test {
-    background: #fff; border: 1px solid var(--line); border-radius: 12px;
-    padding: 1.4rem 1.5rem; margin: 1rem 0 2rem;
-  }
-  .test h3 { margin: 0 0 .5rem; color: var(--wine); font-size: 1.05rem; }
-  .test ol { margin: .6rem 0 1rem; padding-left: 1.3rem; font-size: .88rem; color: #333; }
-  .test li { margin: .25rem 0; }
   code {
     font-family: "Liberation Mono", "DejaVu Sans Mono", monospace;
     font-size: .85em; background: rgba(146,56,38,.08); color: var(--wine);
     border-radius: 4px; padding: .05em .35em;
   }
-  pre {
-    background: #1b1b1b; color: #e8e8e8; border-radius: 8px; padding: .85rem 1rem;
-    overflow-x: auto; font-family: "Liberation Mono", monospace; font-size: .8rem;
+  .kernel {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.4rem 1.5rem 1rem; margin: 2.6rem 0 3rem;
   }
-  pre .c { color: #8f8f8f; }
-  .btn {
-    display: inline-block; text-decoration: none; background: var(--wine); color: #fff;
-    border-radius: 8px; padding: .55rem 1.1rem; font-size: .86rem; font-weight: 600;
-    transition: background .18s ease;
-  }
-  .btn:hover { background: var(--wine-dark); }
-  .btn.ghost { background: #fff; color: var(--wine); border: 1px solid var(--line); margin-left: .5rem; }
+  .kernel h2 { margin-bottom: .3rem; }
+  .kernel .lead { color: var(--muted); font-size: .88rem; margin: 0 0 1rem; max-width: 44rem; }
+  .kernel svg { width: 100%; height: auto; display: block; }
+  .kernel figcaption { color: var(--muted); font-size: .76rem; text-align: center; margin-top: .8rem; }
   footer {
-    border-top: 1px solid var(--line); margin-top: 2rem; padding: 1.6rem 1.5rem 2.4rem;
+    border-top: 1px solid var(--line); margin-top: 1rem; padding: 1.6rem 1.5rem 2.4rem;
     color: var(--muted); font-size: .8rem; text-align: center;
   }
 </style>
@@ -99,8 +87,8 @@
     <h1>Программирование<br>в Linux</h1>
     <div class="rule"></div>
     <p class="sub">
-      Материалы курса: лекции в браузере и тест для промежуточной аттестации.
-      Слайды открываются в любом браузере, устанавливать ничего не нужно.
+      Материалы курса: лекции в браузере. Слайды открываются на любом
+      устройстве, устанавливать ничего не нужно.
     </p>
   </div>
 </header>
@@ -144,36 +132,125 @@
   <div class="note">
     <b>Новые лекции появятся здесь по мере занятий.</b> Курс идёт последовательно:
     каждая следующая колода открывается после того, как материал пройден.
+    Как открыть остальные презентации — сказано в инструкции в репозитории курса.
   </div>
 
-  <h2 style="margin-top:2.4rem">Промежуточная аттестация</h2>
-
-  <div class="test">
-    <h3>Тест по лекциям 1–4 · 30 минут</h3>
-    <ol>
-      <li>Скачайте файл <code>attestation.py</code> (кнопка ниже).</li>
-      <li>Откройте терминал в папке со скачанным файлом.</li>
-      <li>Запустите: <code>python3 attestation.py</code></li>
-      <li>Укажите фамилию, имя и группу, отвечайте на 16 вопросов.</li>
-      <li>После последнего вопроса тест закроется сам. Рядом появится папка
-          <code>vk workspace</code> с файлом результата — его и нужно сдать.</li>
-    </ol>
-
-    <pre><span class="c"># в терминале, в папке с файлом</span>
-python3 attestation.py
-
-<span class="c"># результат появится здесь:</span>
-vk workspace/Иванов_Иван_21-А_2026-11-01_23-06.txt</pre>
-
-    <p style="font-size:.86rem;color:#333;margin:.2rem 0 1rem">
-      <b>Правила:</b> ответ принимается один раз, вернуться нельзя.
-      Выйти из теста нельзя: <code>Ctrl+C</code>, <code>Ctrl+D</code> или закрытие
-      терминала означают, что попытка прервана. Порог — 60% правильных ответов.
+  <figure class="kernel">
+    <h2>Как устроено ядро Linux</h2>
+    <p class="lead">
+      Вся программа работает в пользовательском пространстве и общается
+      с ядром через системные вызовы. Ядро одно на всех — поэтому контейнеры
+      так дёшевы.
     </p>
 
-    <a class="btn" href="./attestation/attestation.py" download>Скачать attestation.py</a>
-    <a class="btn ghost" href="./attestation/README.md">Инструкция</a>
-  </div>
+    <svg viewBox="0 0 900 560" role="img" aria-label="Схема устройства ядра Linux: пользовательское пространство, системные вызовы, подсистемы ядра, железо">
+      <defs>
+        <linearGradient id="kernGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#a8442f" />
+          <stop offset="100%" stop-color="#7a2a1c" />
+        </linearGradient>
+        <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#923826" />
+        </marker>
+        <marker id="arrowUp" markerWidth="9" markerHeight="9" refX="2" refY="4" orient="auto">
+          <path d="M8 0 L0 4 L8 8 Z" fill="#6f6f6f" />
+        </marker>
+      </defs>
+
+      <!-- Пользовательское пространство -->
+      <rect x="10" y="10" width="880" height="150" rx="12" fill="#f4eae7" stroke="rgba(146,56,38,.22)" />
+      <text x="28" y="34" font-size="12" fill="#6f6f6f" letter-spacing="1.6">ПОЛЬЗОВАТЕЛЬСКОЕ ПРОСТРАНСТВО</text>
+
+      <rect x="30" y="48" width="150" height="52" rx="8" fill="#fff" stroke="rgba(146,56,38,.28)" />
+      <text x="105" y="70" font-size="14" fill="#923826" font-weight="bold" text-anchor="middle">браузер</text>
+      <text x="105" y="88" font-size="11" fill="#6f6f6f" text-anchor="middle">программа</text>
+
+      <rect x="196" y="48" width="150" height="52" rx="8" fill="#fff" stroke="rgba(146,56,38,.28)" />
+      <text x="271" y="70" font-size="14" fill="#923826" font-weight="bold" text-anchor="middle">компилятор</text>
+      <text x="271" y="88" font-size="11" fill="#6f6f6f" text-anchor="middle">gcc</text>
+
+      <rect x="362" y="48" width="150" height="52" rx="8" fill="#fff" stroke="rgba(146,56,38,.28)" />
+      <text x="437" y="70" font-size="14" fill="#923826" font-weight="bold" text-anchor="middle">оболочка</text>
+      <text x="437" y="88" font-size="11" fill="#6f6f6f" text-anchor="middle">bash</text>
+
+      <rect x="528" y="48" width="150" height="52" rx="8" fill="#fff" stroke="rgba(146,56,38,.28)" />
+      <text x="603" y="70" font-size="14" fill="#923826" font-weight="bold" text-anchor="middle">сервер</text>
+      <text x="603" y="88" font-size="11" fill="#6f6f6f" text-anchor="middle">nginx</text>
+
+      <rect x="694" y="48" width="176" height="52" rx="8" fill="#fff" stroke="rgba(146,56,38,.28)" />
+      <text x="782" y="70" font-size="14" fill="#923826" font-weight="bold" text-anchor="middle">библиотека C</text>
+      <text x="782" y="88" font-size="11" fill="#6f6f6f" text-anchor="middle">glibc · musl</text>
+
+      <text x="450" y="132" font-size="12" fill="#6f6f6f" text-anchor="middle">
+        программы не трогают железо напрямую — они просят ядро
+      </text>
+
+      <!-- Системные вызовы -->
+      <path d="M450 168 L450 196" stroke="#923826" stroke-width="2.4" marker-end="url(#arrow)" />
+      <path d="M470 196 L470 168" stroke="#6f6f6f" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#arrowUp)" />
+
+      <rect x="120" y="204" width="660" height="44" rx="10" fill="#fff5ea" stroke="#d3b25f" stroke-width="1.6" />
+      <text x="450" y="224" font-size="14" fill="#7a5a1e" font-weight="bold" text-anchor="middle">СИСТЕМНЫЕ ВЫЗОВЫ</text>
+      <text x="450" y="240" font-size="11.5" fill="#7a5a1e" text-anchor="middle">
+        open · read · write · fork · execve · mmap · socket
+      </text>
+
+      <!-- Ядро -->
+      <path d="M450 252 L450 268" stroke="#923826" stroke-width="2.4" marker-end="url(#arrow)" />
+
+      <rect x="20" y="274" width="860" height="196" rx="14" fill="url(#kernGrad)" stroke="#5f1f14" />
+      <text x="40" y="300" font-size="12" fill="rgba(255,255,255,.72)" letter-spacing="1.6">ЯДРО LINUX · ОДНО НА ВСЕ ПРОЦЕССЫ</text>
+
+      <g fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.45)">
+        <rect x="40" y="314" width="152" height="78" rx="8" />
+        <rect x="206" y="314" width="152" height="78" rx="8" />
+        <rect x="372" y="314" width="152" height="78" rx="8" />
+        <rect x="538" y="314" width="152" height="78" rx="8" />
+        <rect x="704" y="314" width="152" height="78" rx="8" />
+      </g>
+
+      <g fill="#fff" font-size="13" font-weight="bold" text-anchor="middle">
+        <text x="116" y="340">планировщик</text>
+        <text x="282" y="340">память</text>
+        <text x="448" y="340">файлы (VFS)</text>
+        <text x="614" y="340">сеть</text>
+        <text x="780" y="340">драйверы</text>
+      </g>
+      <g fill="rgba(255,255,255,.75)" font-size="10.5" text-anchor="middle">
+        <text x="116" y="360">кому работать</text>
+        <text x="116" y="375">сколько ядер</text>
+        <text x="282" y="360">страницы, кэш</text>
+        <text x="282" y="375">виртуальная память</text>
+        <text x="448" y="360">ext4, btrfs</text>
+        <text x="448" y="375">«всё есть файл»</text>
+        <text x="614" y="360">TCP/IP, сокеты</text>
+        <text x="614" y="375">маршруты</text>
+        <text x="780" y="360">диск, видео, USB</text>
+        <text x="780" y="375">загружаемые модули</text>
+      </g>
+
+      <text x="450" y="424" font-size="11.5" fill="rgba(255,255,255,.72)" text-anchor="middle">
+        подсистемы работают в одном адресном пространстве и вызывают друг друга напрямую
+      </text>
+      <text x="450" y="448" font-size="11.5" fill="rgba(255,255,255,.72)" text-anchor="middle">
+        контейнер — это те же процессы, но namespaces ограничивают видимость, а cgroups — ресурсы
+      </text>
+
+      <!-- Железо -->
+      <path d="M450 470 L450 490" stroke="#923826" stroke-width="2.4" marker-end="url(#arrow)" />
+
+      <rect x="20" y="496" width="860" height="52" rx="10" fill="#2a2320" stroke="#1b1512" />
+      <text x="450" y="518" font-size="13" fill="#f0e6e2" font-weight="bold" text-anchor="middle">ЖЕЛЕЗО</text>
+      <text x="450" y="536" font-size="11" fill="rgba(240,230,226,.72)" text-anchor="middle">
+        процессор · оперативная память · диски · сетевые карты
+      </text>
+    </svg>
+
+    <figcaption>
+      Монолитное ядро с модулями: драйвер можно загрузить и выгрузить на ходу,
+      не пересобирая ядро.
+    </figcaption>
+  </figure>
 
 </main>
 
